@@ -1,8 +1,18 @@
 <template>
   <div>
+    <global-nav />
     <nuxt />
   </div>
 </template>
+
+<script>
+import GlobalNav from '~/layouts/GlobalNav.vue'
+export default {
+  components: {
+    GlobalNav
+  }
+}
+</script>
 
 <style>
 html {

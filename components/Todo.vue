@@ -1,7 +1,6 @@
 <template>
-  <div id="todo" class="w-full">
+  <div id="todo" class="w-full my-3">
     <div>
-      <p></p>
       <transition-group
         name="list-complete"
         tag="ul"
