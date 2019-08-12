@@ -1,6 +1,9 @@
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-green-500 p-6">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
+    <div
+      class="flex items-center flex-shrink-0 text-white mr-6"
+      @click="toggleMenu"
+    >
       <span class="font-semibold text-xl tracking-tight">Remember Me</span>
 
       <svg
@@ -56,21 +59,39 @@
           </svg>
         </button>
       </div> -->
-    <div class="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
+    <div
+      :class="{ hidden: isHidden }"
+      class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
+    >
       <div class="text-sm lg:flex-grow">
-        <a
-          href="#responsive-header"
+        <nuxt-link
+          to="/"
           class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+          >In progress</nuxt-link
         >
-          Archive
-        </a>
-        <a
-          href="#responsive-header"
+        <nuxt-link
+          to="/archive"
           class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+          >Archive</nuxt-link
         >
-          Examples
-        </a>
       </div>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isHidden: true
+    }
+  },
+  methods: {
+    toggleMenu(e) {
+      this.isHidden = !this.isHidden
+    }
+  }
+}
+</script>
+
+<style scoped></style>
