@@ -19,7 +19,6 @@
               v-if="item"
               v-model="item.isChecked"
               type="checkbox"
-              class="hidden"
               @change="updateCheckedCount"
             />
             {{ item.title }}
