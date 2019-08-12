@@ -1,10 +1,12 @@
 <template>
-  <div id="todo">
-    <div class="w-full">
+  <div id="todo" class="w-full">
+    <div>
+      <p></p>
       <transition-group
         name="list-complete"
         tag="ul"
         class="flex flex-col bg-gray-200"
+        :class="{ 'h-screen': isItemEditing }"
       >
         <li
           v-for="(item, index) in items"
@@ -12,8 +14,8 @@
           class="flex list-complete-item text-center px-2 py-2 mx-0 my-2"
         >
           <label
-            class="w-9/12 my-auto"
-            :class="{ done: item.isChecked, hide: item.isEditing }"
+            class="w-9/12 my-auto text-left"
+            :class="{ done: item.isChecked, hide: isItemEditing }"
           >
             <input
               v-if="item"
@@ -35,10 +37,10 @@
             />
             <div class="w-auto inline-block"></div>
           </label>
-          <div class="w-auto my-auto" :class="{ hide: item.isEditing }">
+          <div class="w-auto my-auto">
             <button
               :disabled="isItemEditing"
-              :class="{ 'opacity-50': isItemEditing }"
+              :class="{ hide: isItemEditing }"
               class="bg-green-500 hover:bg-green-700 text-white px-2 py-2 mx-2 rounded"
               @click="showEditMode(index)"
             >
@@ -47,9 +49,13 @@
           </div>
         </li>
       </transition-group>
-      <div class="m-2">
-        <button :disabled="!checkedCount" @click="deleteTodo()">
-          チェック済みの項目をアーカイブする
+      <div class="text-center m-2" :class="{ hide: isItemEditing }">
+        <button
+          :class="{ hide: !checkedCount }"
+          class="bg-yellow-500 text-white px-2 py-2 m-2 rounded"
+          @click="deleteTodo()"
+        >
+          アーカイブする
         </button>
         <div
           class="flex items-center border-2 borader-tead-500 rounded-lg py-2"
