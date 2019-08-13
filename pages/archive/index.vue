@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <p>アーカイブ</p>
+  <div class="container">
     <archive />
   </div>
 </template>

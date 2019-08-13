@@ -1,5 +1,6 @@
 <template>
   <div id="archive" class="w-full my-3">
+    <h1 class="text-xl font-semibold m-2 text-black-500">アーカイブ</h1>
     <div>
       <transition-group
         name="list-complete"
@@ -16,7 +17,12 @@
             class="w-9/12 my-auto text-left"
             :class="{ done: item.isChecked, hide: isItemEditing }"
           >
-            <input v-if="item" v-model="item.isChecked" type="checkbox" />
+            <input
+              v-if="item"
+              v-model="item.isChecked"
+              type="checkbox"
+              @change="updateCheckedCount"
+            />
             {{ item.title }}
           </label>
         </li>
@@ -92,9 +98,39 @@ export default {
     loadTodo() {
       this.items = JSON.parse(localStorage.getItem('items')) || []
     },
-    confirmMessage() {
-      this.isItemConfirmed = true
+    updateCheckedCount() {
+      const checked = this.archiveItems.filter(function(item) {
+        return item.isChecked === true
+      })
+      this.checkedCount = checked.length
     }
   }
 }
 </script>
+
+<style scoped>
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+.done {
+  text-decoration: line-through;
+}
+.hide {
+  display: none !important;
+}
+.list-complete-item {
+  transition: all 1s;
+}
+.list-complete-enter,
+.list-complete-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>
