@@ -7,7 +7,8 @@
       <span class="font-semibold text-xl tracking-tight">Remember Me</span>
 
       <svg
-        class="fill-current h-6 w-6 ml-2"
+        :class="{ hidden: !isMenuHidden }"
+        class="fill-current h-6 w-6 ml-2 lg:hidden"
         width="74px"
         height="74px"
         viewBox="0 0 74 74"
@@ -60,7 +61,7 @@
         </button>
       </div> -->
     <div
-      :class="{ hidden: isHidden }"
+      :class="{ hidden: isMenuHidden }"
       class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
     >
       <div class="text-sm lg:flex-grow">
@@ -83,12 +84,12 @@
 export default {
   data() {
     return {
-      isHidden: true
+      isMenuHidden: true
     }
   },
   methods: {
     toggleMenu(e) {
-      this.isHidden = !this.isHidden
+      this.isMenuHidden = !this.isMenuHidden
     }
   }
 }
