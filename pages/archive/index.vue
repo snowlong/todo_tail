@@ -1,11 +1,17 @@
 <template>
   <div>
-    <p>test</p>
+    <p>アーカイブ</p>
+    <archive />
   </div>
 </template>
 
 <script>
-export default {}
+import Archive from '~/components/Archive.vue'
+export default {
+  components: {
+    Archive
+  }
+}
 </script>
 
 <style scoped></style>

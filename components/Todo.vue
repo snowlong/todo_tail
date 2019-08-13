@@ -81,7 +81,8 @@ export default {
       isItemEditing: false,
       checkedCount: 0,
       newItemTitle: '',
-      items: []
+      items: [],
+      archiveItems: []
     }
   },
   mounted() {
@@ -103,6 +104,7 @@ export default {
         id: now,
         title: this.newItemTitle,
         isChecked: false,
+        isArchived: false,
         isEditing: false
       })
       this.newItemTitle = ''
@@ -113,8 +115,26 @@ export default {
     saveTodo() {
       localStorage.setItem('items', JSON.stringify(this.items))
     },
+    addArchive() {
+      if (!this.checkedCount) {
+        return
+      }
+
+      this.archiveItems = this.items.filter(function(item) {
+        return item.isChecked === true
+      })
+
+      this.saveArchive()
+    },
+    saveArchive() {
+      this.archiveItems.forEach((item, index) => {
+        item.isArchived = true
+        item.isChecked = false
+      })
+
+      localStorage.setItem('archiveItems', JSON.stringify(this.archiveItems))
+    },
     showEditMode(_index) {
-      console.log(_index)
       if (this.isItemEditing) {
         return
       }
@@ -131,16 +151,15 @@ export default {
       this.saveTodo()
     },
     deleteTodo() {
+      this.addArchive()
+
       this.items = this.items.filter(function(item) {
-        return item.isChecked === false
+        return item.isArchived === false
       })
       this.saveTodo()
     },
     loadTodo() {
-      this.items = JSON.parse(localStorage.getItem('items'))
-      if (!this.items) {
-        this.items = []
-      }
+      this.items = JSON.parse(localStorage.getItem('items')) || []
     },
     updateCheckedCount() {
       const checked = this.items.filter(function(item) {
