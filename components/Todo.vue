@@ -1,5 +1,6 @@
 <template>
   <div id="todo" class="w-full my-3">
+    <h1 class="text-xl font-semibold m-2 text-gray-700">タスク</h1>
     <div>
       <transition-group
         name="list-complete"
@@ -87,6 +88,7 @@ export default {
   },
   mounted() {
     this.loadTodo()
+    this.loadArchive()
     this.updateCheckedCount()
   },
   methods: {
@@ -120,9 +122,15 @@ export default {
         return
       }
 
-      this.archiveItems = this.items.filter(function(item) {
+      const addItems = this.items.filter(function(item) {
         return item.isChecked === true
       })
+
+      if (addItems) {
+        addItems.forEach((item, index) => {
+          this.archiveItems.push(item)
+        })
+      }
 
       this.saveArchive()
     },
@@ -157,6 +165,15 @@ export default {
         return item.isArchived === false
       })
       this.saveTodo()
+    },
+    loadArchive() {
+      this.archiveItems = JSON.parse(localStorage.getItem('archiveItems')) || []
+
+      if (this.archiveItems) {
+        this.archiveItems.forEach((item, index) => {
+          item.isChecked = false
+        })
+      }
     },
     loadTodo() {
       this.items = JSON.parse(localStorage.getItem('items')) || []
@@ -198,8 +215,5 @@ li {
 }
 .list-complete-leave-active {
   position: absolute;
-}
-.edit-button-box {
-  /* display: inline-block; */
 }
 </style>
