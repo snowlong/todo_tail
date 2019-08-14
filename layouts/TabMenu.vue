@@ -1,12 +1,5 @@
 <template>
   <ul class="flex border-b m-2">
-    <!-- <li class="-mb-px mr-1" @click="switchTabs(1)">
-      <a
-        class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
-        href="#"
-        >Active</a
-      >
-    </li> -->
     <li
       :class="{ '-mb-px': selectedIndex === 0 }"
       class="mr-1"
@@ -38,13 +31,30 @@
 export default {
   data() {
     return {
-      selectedIndex: 0
+      selectedIndex: null
     }
+  },
+  created() {
+    this.getSelected()
   },
   methods: {
     switchTabs(idx) {
       console.log(idx)
       this.selectedIndex = idx
+    },
+    getSelected() {
+      console.log(this.$route.path)
+      switch (this.$route.path) {
+        case '/':
+          this.selectedIndex = 0
+          break
+
+        case '/archive':
+          this.selectedIndex = 1
+          break
+        default:
+          break
+      }
     }
   }
 }
