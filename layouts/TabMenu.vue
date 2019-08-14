@@ -31,7 +31,7 @@
 export default {
   data() {
     return {
-      selectedIndex: 0
+      selectedIndex: null
     }
   },
   created() {
