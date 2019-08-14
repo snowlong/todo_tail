@@ -64,4 +64,7 @@ export default {
 .active {
   @apply border-l border-t border-r rounded-t py-2 px-4 text-blue-700;
 }
+a {
+  text-decoration: none;
+}
 </style>
