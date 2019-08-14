@@ -6,7 +6,7 @@
     >
       <span class="font-semibold text-xl tracking-tight">Remember Me</span>
 
-      <svg
+      <!-- <svg
         :class="{ hidden: !isMenuHidden }"
         class="fill-current h-6 w-6 ml-2 lg:hidden"
         width="74px"
@@ -44,7 +44,7 @@
             ></path>
           </g>
         </g>
-      </svg>
+      </svg> -->
     </div>
     <!-- <div class="block lg:hidden">
         <button
@@ -64,18 +64,18 @@
       :class="{ hidden: isMenuHidden }"
       class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
     >
-      <div class="text-sm lg:flex-grow">
+      <!-- <div class="text-sm lg:flex-grow">
         <nuxt-link
           to="/"
           class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >In progress</nuxt-link
+          >やること</nuxt-link
         >
         <nuxt-link
           to="/archive"
           class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >Archive</nuxt-link
+          >完了</nuxt-link
         >
-      </div>
+      </div> -->
     </div>
   </nav>
 </template>

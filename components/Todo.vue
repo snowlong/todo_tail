@@ -1,6 +1,6 @@
 <template>
-  <div id="todo" class="w-full my-3">
-    <h1 class="text-xl font-semibold m-2 text-gray-700">タスク</h1>
+  <div id="todo" class="w-full">
+    <h1 class="text-xl font-semibold m-2 text-gray-700">やることリスト</h1>
     <div>
       <transition-group
         name="list-complete"
@@ -55,7 +55,7 @@
           class="bg-yellow-500 text-white px-2 py-2 m-2 rounded"
           @click="deleteTodo()"
         >
-          アーカイブする
+          完了にする
         </button>
         <div
           class="flex items-center border-2 borader-tead-500 rounded-lg py-2"
@@ -164,6 +164,7 @@ export default {
       this.items = this.items.filter(function(item) {
         return item.isArchived === false
       })
+      this.updateCheckedCount()
       this.saveTodo()
     },
     loadArchive() {

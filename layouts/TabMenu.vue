@@ -1,0 +1,57 @@
+<template>
+  <ul class="flex border-b m-2">
+    <!-- <li class="-mb-px mr-1" @click="switchTabs(1)">
+      <a
+        class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
+        href="#"
+        >Active</a
+      >
+    </li> -->
+    <li
+      :class="{ '-mb-px': selectedIndex === 0 }"
+      class="mr-1"
+      @click="switchTabs(0)"
+    >
+      <nuxt-link
+        to="/"
+        :class="{ active: selectedIndex === 0 }"
+        class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >やること</nuxt-link
+      >
+    </li>
+    <li
+      :class="{ '-mb-px': selectedIndex === 1 }"
+      class="mr-1"
+      @click="switchTabs(1)"
+    >
+      <nuxt-link
+        to="/archive"
+        :class="{ active: selectedIndex === 1 }"
+        class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >完了</nuxt-link
+      >
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedIndex: 0
+    }
+  },
+  methods: {
+    switchTabs(idx) {
+      console.log(idx)
+      this.selectedIndex = idx
+    }
+  }
+}
+</script>
+
+<style scoped>
+.active {
+  @apply border-l border-t border-r rounded-t py-2 px-4 text-blue-700;
+}
+</style>

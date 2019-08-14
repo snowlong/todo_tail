@@ -1,6 +1,6 @@
 <template>
-  <div id="archive" class="w-full my-3">
-    <h1 class="text-xl font-semibold m-2 text-black-500">アーカイブ</h1>
+  <div id="archive" class="w-full">
+    <h1 class="text-xl font-semibold m-2 text-black-500">完了リスト</h1>
     <div>
       <transition-group
         name="list-complete"
@@ -73,6 +73,7 @@ export default {
         item.isChecked = false
       })
 
+      this.updateCheckedCount()
       this.saveTodo()
       this.saveArchive()
     },
