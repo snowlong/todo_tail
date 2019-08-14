@@ -34,7 +34,7 @@ export default {
       selectedIndex: 0
     }
   },
-  mounted() {
+  created() {
     this.getSelected()
   },
   methods: {
