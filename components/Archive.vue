@@ -2,6 +2,14 @@
   <div id="archive" class="w-full">
     <h1 class="text-xl font-semibold m-2 text-black-500">完了リスト</h1>
     <div>
+      <div
+        :class="{ hidden: !(archiveItems.length === 0) }"
+        class="bg-gray-200"
+      >
+        <p class="block text-center text-gray-700 text-xl p-6 font-bold">
+          {{ blankMessage }}
+        </p>
+      </div>
       <transition-group
         name="list-complete"
         tag="ul"
@@ -51,6 +59,7 @@
 export default {
   data() {
     return {
+      blankMessage: '完了しているタスクはありません',
       isItemConfirmed: false,
       isItemEditing: false,
       checkedCount: 0,

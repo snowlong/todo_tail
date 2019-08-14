@@ -2,6 +2,11 @@
   <div id="todo" class="w-full">
     <h1 class="text-xl font-semibold m-2 text-gray-700">やることリスト</h1>
     <div>
+      <div :class="{ hidden: !(items.length === 0) }" class="bg-gray-200">
+        <p class="block text-center text-gray-700 text-xl p-6 font-bold">
+          {{ blankMessage }}
+        </p>
+      </div>
       <transition-group
         name="list-complete"
         tag="ul"
@@ -78,6 +83,7 @@
 export default {
   data() {
     return {
+      blankMessage: '未完了のタスクはありません',
       isItemConfirmed: false,
       isItemEditing: false,
       checkedCount: 0,
