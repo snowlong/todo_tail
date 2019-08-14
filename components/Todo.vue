@@ -21,7 +21,7 @@
               v-if="item"
               v-model="item.isChecked"
               type="checkbox"
-              @change="updateCheckedCount"
+              @change="checkItem"
             />
             {{ item.title }}
           </label>
@@ -178,6 +178,10 @@ export default {
     },
     loadTodo() {
       this.items = JSON.parse(localStorage.getItem('items')) || []
+    },
+    checkItem() {
+      this.updateCheckedCount()
+      this.saveTodo()
     },
     updateCheckedCount() {
       const checked = this.items.filter(function(item) {
