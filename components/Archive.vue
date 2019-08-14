@@ -27,13 +27,20 @@
           </label>
         </li>
       </transition-group>
-      <div class="text-center m-2" :class="{ hide: isItemEditing }">
+      <div class="text-center m-2">
         <button
           :class="{ hide: !checkedCount }"
           class="bg-green-500 text-white px-2 py-2 m-2 rounded"
           @click="restoreArchive()"
         >
           戻す
+        </button>
+        <button
+          :class="{ hide: !checkedCount }"
+          class="bg-red-500 text-white px-2 py-2 m-2 rounded"
+          @click="deleteArchive()"
+        >
+          削除
         </button>
       </div>
     </div>
@@ -59,7 +66,11 @@ export default {
   },
   methods: {
     deleteArchive() {
-      localStorage.setItem('items', JSON.stringify(this.items))
+      this.archiveItems = this.archiveItems.filter(function(item) {
+        return item.isChecked === false
+      })
+      this.updateCheckedCount()
+      this.saveArchive()
     },
     restoreArchive() {
       this.restoreItems = this.archiveItems.filter(function(item) {
