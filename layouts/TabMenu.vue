@@ -31,7 +31,7 @@
 export default {
   data() {
     return {
-      selectedIndex: null
+      selectedIndex: 0
     }
   },
   mounted() {
