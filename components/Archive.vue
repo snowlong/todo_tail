@@ -1,57 +1,61 @@
 <template>
   <div id="archive" class="w-full">
     <tab-menu :selected="tabIndex" />
-    <h1 class="text-xl font-semibold m-2 text-black-500">完了リスト</h1>
-    <div>
-      <div
-        :class="{ hidden: !(archiveItems.length === 0) }"
-        class="bg-gray-200"
-      >
+    <h1 class="text-xl font-semibold mx-3 my-2 text-gray-700">完了リスト</h1>
+    <div class="mx-3">
+      <div :class="{ hidden: !(archiveItems.length === 0) }">
         <p class="block text-center text-gray-700 text-xl p-6 font-bold">
           {{ blankMessage }}
         </p>
       </div>
-      <transition-group
-        name="list-complete"
-        tag="ul"
-        class="flex flex-col bg-gray-300"
-        :class="{ 'h-screen': isItemEditing }"
-      >
+      <transition-group name="list-complete" tag="ul" class="flex flex-col">
         <li
-          v-for="item in archiveItems"
+          v-for="(item, index) in getArchiveItemOrderByDate"
           :key="item.id"
-          class="flex list-complete-item text-center px-2 py-2 mx-0 my-2"
+          sticky-container
+          class="list-complete-item w-full text-left"
         >
-          <label
-            class="w-9/12 my-auto text-left"
-            :class="{ done: item.isChecked, hide: isItemEditing }"
+          <p
+            v-if="
+              index === 0 ||
+                item.archivedDate !==
+                  getArchiveItemOrderByDate[index - 1].archivedDate
+            "
+            v-sticky
+            class="bg-white pt-3 pb-4 pl-2"
           >
-            <input
-              v-if="item"
-              v-model="item.isChecked"
-              type="checkbox"
-              @change="updateCheckedCount"
-            />
-            {{ item.title }}
-          </label>
+            {{ item.archivedDate }}
+          </p>
+          <p class="block bg-gray-200 p-4">
+            <label :class="{ done: item.isChecked }">
+              <input
+                v-if="item"
+                v-model="item.isChecked"
+                type="checkbox"
+                @change="updateCheckedCount"
+              />
+              {{ item.title }}
+            </label>
+          </p>
         </li>
       </transition-group>
-      <div class="text-center m-2">
-        <button
-          :class="{ hide: !checkedCount }"
-          class="bg-green-500 text-white px-2 py-2 m-2 rounded"
-          @click="restoreArchive()"
-        >
-          戻す
-        </button>
-        <button
-          :class="{ hide: !checkedCount }"
-          class="bg-red-500 text-white px-2 py-2 m-2 rounded"
-          @click="deleteArchive()"
-        >
-          削除
-        </button>
-      </div>
+    </div>
+
+    <div class="text-center m-2">
+      <button
+        :class="{ hide: !checkedCount }"
+        class="bg-green-500 text-white px-2 py-2 m-2 rounded"
+        @click="restoreArchive()"
+      >
+        戻す
+      </button>
+      <button
+        :class="{ hide: !checkedCount }"
+        class="bg-red-500 text-white px-2 py-2 m-2 rounded"
+        @click="deleteArchive()"
+      >
+        削除
+      </button>
     </div>
   </div>
 </template>
@@ -74,6 +78,11 @@ export default {
       archiveItems: [],
       restoreItems: [],
       tabIndex: 1
+    }
+  },
+  computed: {
+    getArchiveItemOrderByDate() {
+      return _.orderBy(this.archiveItems, ['archivedDate'], ['desc'])
     }
   },
   mounted() {

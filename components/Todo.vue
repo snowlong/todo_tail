@@ -1,8 +1,10 @@
 <template>
   <div id="todo" class="w-full">
     <tab-menu :selected="tabIndex" />
-    <h1 class="text-xl font-semibold m-2 text-gray-700">やることリスト</h1>
-    <div>
+    <h1 class="text-xl font-semibold mx-3 my-2 text-gray-700">
+      やることリスト
+    </h1>
+    <div class="mx-3">
       <div :class="{ hidden: !(items.length === 0) }" class="bg-gray-200">
         <p class="block text-center text-gray-700 text-xl p-6 font-bold">
           {{ blankMessage }}
@@ -17,7 +19,7 @@
         <li
           v-for="(item, index) in items"
           :key="item.id"
-          class="flex list-complete-item text-center px-2 py-2 mx-0 my-2"
+          class="flex list-complete-item text-center px-2 py-2 mx-0 m-2"
         >
           <label
             class="w-9/12 my-auto text-left"
@@ -120,6 +122,7 @@ export default {
         title: this.newItemTitle,
         isChecked: false,
         isArchived: false,
+        archivedDate: '',
         isEditing: false
       })
       this.newItemTitle = ''
@@ -141,6 +144,8 @@ export default {
 
       if (addItems) {
         addItems.forEach((item, index) => {
+          item.archivedDate = this.getToday()
+
           this.archiveItems.push(item)
         })
       }
@@ -204,6 +209,13 @@ export default {
     },
     confirmMessage() {
       this.isItemConfirmed = true
+    },
+    getToday() {
+      const date = new Date()
+      const y = date.getFullYear()
+      const m = ('00' + (date.getMonth() + 1)).slice(-2)
+      const d = ('00' + date.getDate()).slice(-2)
+      return y + m + d
     }
   }
 }

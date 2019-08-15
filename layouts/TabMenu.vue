@@ -29,15 +29,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedIndex: null
-    }
-  },
   props: {
     selected: {
       type: Number,
       default: 0
+    }
+  },
+  data() {
+    return {
+      selectedIndex: null
     }
   },
   methods: {
