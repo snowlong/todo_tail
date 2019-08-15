@@ -1,19 +1,16 @@
 <template>
   <div>
     <global-nav />
-    <tab-menu />
     <nuxt />
   </div>
 </template>
 
 <script>
 import GlobalNav from '~/layouts/GlobalNav.vue'
-import TabMenu from '~/layouts/TabMenu.vue'
 
 export default {
   components: {
-    GlobalNav,
-    TabMenu
+    GlobalNav
   }
 }
 </script>

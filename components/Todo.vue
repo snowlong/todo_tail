@@ -1,5 +1,6 @@
 <template>
   <div id="todo" class="w-full">
+    <tab-menu :selected="tabIndex" />
     <h1 class="text-xl font-semibold m-2 text-gray-700">やることリスト</h1>
     <div>
       <div :class="{ hidden: !(items.length === 0) }" class="bg-gray-200">
@@ -80,7 +81,12 @@
 </template>
 
 <script>
+import TabMenu from '~/layouts/TabMenu.vue'
+
 export default {
+  components: {
+    TabMenu
+  },
   data() {
     return {
       blankMessage: '未完了のタスクはありません',
@@ -89,7 +95,8 @@ export default {
       checkedCount: 0,
       newItemTitle: '',
       items: [],
-      archiveItems: []
+      archiveItems: [],
+      tabIndex: 0
     }
   },
   mounted() {
@@ -203,10 +210,6 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  margin: 0;
-  padding: 0;
-}
 li {
   list-style: none;
 }

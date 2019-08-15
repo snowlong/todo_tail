@@ -1,5 +1,6 @@
 <template>
   <div id="archive" class="w-full">
+    <tab-menu :selected="tabIndex" />
     <h1 class="text-xl font-semibold m-2 text-black-500">完了リスト</h1>
     <div>
       <div
@@ -56,7 +57,12 @@
 </template>
 
 <script>
+import TabMenu from '~/layouts/TabMenu.vue'
+
 export default {
+  components: {
+    TabMenu
+  },
   data() {
     return {
       blankMessage: '完了しているタスクはありません',
@@ -66,7 +72,8 @@ export default {
       newItemTitle: '',
       items: [],
       archiveItems: [],
-      restoreItems: []
+      restoreItems: [],
+      tabIndex: 1
     }
   },
   mounted() {
@@ -130,10 +137,6 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  margin: 0;
-  padding: 0;
-}
 li {
   list-style: none;
 }
