@@ -23,7 +23,10 @@
             class="list-complete-item w-full text-left"
           >
             <p class="block bg-gray-200 p-4">
-              <label :class="{ done: item.isChecked }">
+              <label
+                :class="{ done: item.isChecked }"
+                class="text-gray-700 font-semibold"
+              >
                 <input
                   v-if="item"
                   v-model="item.isChecked"

@@ -27,7 +27,7 @@
           class="flex list-complete-item text-center px-2 py-2 mx-0 m-2"
         >
           <label
-            class="w-9/12 my-auto text-left"
+            class="w-9/12 my-auto text-gray-700 font-semibold text-left"
             :class="{ done: item.isChecked, hide: isItemEditing }"
           >
             <input
