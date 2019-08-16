@@ -4,7 +4,7 @@
       class="flex items-center flex-shrink-0 text-white mr-6"
       @click="toggleMenu"
     >
-      <span class="font-semibold text-xl tracking-tight">Remember Me</span>
+      <span class="font-semibold text-xl tracking-tight">Recorize Me</span>
 
       <!-- <svg
         :class="{ hidden: !isMenuHidden }"

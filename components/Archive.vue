@@ -1,61 +1,57 @@
 <template>
   <div id="archive" class="w-full">
     <tab-menu :selected="tabIndex" />
-    <h1 class="text-xl font-semibold mx-3 my-2 text-gray-700">完了リスト</h1>
+    <h1 class="text-xl font-semibold mx-3 my-2 text-gray-700">日付別</h1>
     <div class="mx-3">
       <div :class="{ hidden: !(archiveItems.length === 0) }">
         <p class="block text-center text-gray-700 text-xl p-6 font-bold">
           {{ blankMessage }}
         </p>
       </div>
-      <transition-group name="list-complete" tag="ul" class="flex flex-col">
-        <li
-          v-for="(item, index) in getArchiveItemOrderByDate"
-          :key="item.id"
-          sticky-container
-          class="list-complete-item w-full text-left"
-        >
-          <p
-            v-if="
-              index === 0 ||
-                item.archivedDate !==
-                  getArchiveItemOrderByDate[index - 1].archivedDate
-            "
-            v-sticky
-            class="bg-white pt-3 pb-4 pl-2"
+      <div
+        v-for="itemList in getArchiveItems"
+        :key="itemList.archivedDate"
+        sticky-container
+      >
+        <p v-sticky class="bg-white pt-3 pb-4">
+          {{ itemList.archivedDate }}に活動
+        </p>
+        <transition-group name="list-complete" tag="ul" class="flex flex-col">
+          <li
+            v-for="item in itemList.archives"
+            :key="item.id"
+            class="list-complete-item w-full text-left"
           >
-            {{ item.archivedDate }}
-          </p>
-          <p class="block bg-gray-200 p-4">
-            <label :class="{ done: item.isChecked }">
-              <input
-                v-if="item"
-                v-model="item.isChecked"
-                type="checkbox"
-                @change="updateCheckedCount"
-              />
-              {{ item.title }}
-            </label>
-          </p>
-        </li>
-      </transition-group>
-    </div>
-
-    <div class="text-center m-2">
-      <button
-        :class="{ hide: !checkedCount }"
-        class="bg-green-500 text-white px-2 py-2 m-2 rounded"
-        @click="restoreArchive()"
-      >
-        戻す
-      </button>
-      <button
-        :class="{ hide: !checkedCount }"
-        class="bg-red-500 text-white px-2 py-2 m-2 rounded"
-        @click="deleteArchive()"
-      >
-        削除
-      </button>
+            <p class="block bg-gray-200 p-4">
+              <label :class="{ done: item.isChecked }">
+                <input
+                  v-if="item"
+                  v-model="item.isChecked"
+                  type="checkbox"
+                  @change="updateCheckedCount"
+                />
+                {{ item.title }}
+              </label>
+            </p>
+          </li></transition-group
+        >
+        <div class="text-center m-2">
+          <button
+            :class="{ hide: !checkedCount }"
+            class="bg-green-500 text-white px-2 py-2 m-2 rounded"
+            @click="restoreArchive()"
+          >
+            戻す
+          </button>
+          <button
+            :class="{ hide: !checkedCount }"
+            class="bg-red-500 text-white px-2 py-2 m-2 rounded"
+            @click="deleteArchive()"
+          >
+            削除
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -69,7 +65,7 @@ export default {
   },
   data() {
     return {
-      blankMessage: '完了しているタスクはありません',
+      blankMessage: '',
       isItemConfirmed: false,
       isItemEditing: false,
       checkedCount: 0,
@@ -83,11 +79,19 @@ export default {
   computed: {
     getArchiveItemOrderByDate() {
       return _.orderBy(this.archiveItems, ['archivedDate'], ['desc'])
+    },
+    getArchiveItems() {
+      return _.chain(this.archiveItems)
+        .groupBy('archivedDate')
+        .map((archives, archivedDate) => ({ archivedDate, archives }))
+        .orderBy((group) => Number(group.archivedDate), ['desc'])
+        .value()
     }
   },
   mounted() {
     this.loadTodo()
     this.loadArchive()
+    this.updateBlankMessege()
   },
   methods: {
     deleteArchive() {
@@ -140,6 +144,9 @@ export default {
         return item.isChecked === true
       })
       this.checkedCount = checked.length
+    },
+    updateBlankMessege() {
+      this.blankMessage = 'ここにあなたの活動が記録されます'
     }
   }
 }

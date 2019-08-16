@@ -2,12 +2,17 @@
   <div id="todo" class="w-full">
     <tab-menu :selected="tabIndex" />
     <h1 class="text-xl font-semibold mx-3 my-2 text-gray-700">
-      やることリスト
+      活動
     </h1>
     <div class="mx-3">
       <div :class="{ hidden: !(items.length === 0) }" class="bg-gray-200">
-        <p class="block text-center text-gray-700 text-xl p-6 font-bold">
+        <p
+          class="block text-center text-gray-700 text-xl pt-6 pb-3 px-6 font-bold"
+        >
           {{ blankMessage }}
+        </p>
+        <p class="text-center text-gray-500 pb-3">
+          今日はなにをしましたか？記録を残しましょう
         </p>
       </div>
       <transition-group
@@ -63,7 +68,7 @@
           class="bg-yellow-500 text-white px-2 py-2 m-2 rounded"
           @click="deleteTodo()"
         >
-          完了にする
+          記録する
         </button>
         <div
           class="flex items-center border-2 borader-tead-500 rounded-lg py-2"
@@ -71,7 +76,7 @@
           <input
             v-model="newItemTitle"
             type="text"
-            placeholder="タスクを入力してください"
+            placeholder="映画をみた 植木に水をやった プレゼントを買ったなど"
             class="appearance-none bg-transparent borde-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             @keyup.enter="addTodo"
             @keypress="confirmMessage"
@@ -91,7 +96,7 @@ export default {
   },
   data() {
     return {
-      blankMessage: '未完了のタスクはありません',
+      blankMessage: 'あなたの活動を記録しましょう',
       isItemConfirmed: false,
       isItemEditing: false,
       checkedCount: 0,

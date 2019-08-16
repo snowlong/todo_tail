@@ -9,7 +9,7 @@
         to="/"
         :class="{ active: selected === 0 }"
         class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >やること</nuxt-link
+        >活動</nuxt-link
       >
     </li>
     <li
@@ -21,7 +21,7 @@
         to="/archive"
         :class="{ active: selected === 1 }"
         class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >完了</nuxt-link
+        >記録</nuxt-link
       >
     </li>
   </ul>
