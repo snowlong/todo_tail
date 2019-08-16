@@ -37,14 +37,14 @@
         >
         <div class="text-center m-2">
           <button
-            :class="{ hide: !checkedCount }"
+            :class="{ hidden: !checkedCount }"
             class="bg-green-500 text-white px-2 py-2 m-2 rounded"
             @click="restoreArchive()"
           >
             戻す
           </button>
           <button
-            :class="{ hide: !checkedCount }"
+            :class="{ hidden: !checkedCount }"
             class="bg-red-500 text-white px-2 py-2 m-2 rounded"
             @click="deleteArchive()"
           >
@@ -77,9 +77,6 @@ export default {
     }
   },
   computed: {
-    getArchiveItemOrderByDate() {
-      return _.orderBy(this.archiveItems, ['archivedDate'], ['desc'])
-    },
     getArchiveItems() {
       return _.chain(this.archiveItems)
         .groupBy('archivedDate')
@@ -158,9 +155,6 @@ li {
 }
 .done {
   text-decoration: line-through;
-}
-.hide {
-  display: none !important;
 }
 .list-complete-item {
   transition: all 1s;
